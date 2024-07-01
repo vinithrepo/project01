@@ -1,4 +1,4 @@
-
+cp catalogue.service /etc/systemd/system/catalogue.service
 
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
