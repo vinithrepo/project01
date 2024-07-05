@@ -1,2 +1,3 @@
 # project01
-It is just a test repository
+This is my first Project
+RoboShop
