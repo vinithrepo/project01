@@ -1,5 +1,5 @@
 component=cart
 
-souce common.sh
+source common.sh
 
 func_nodejs
