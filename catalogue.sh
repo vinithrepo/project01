@@ -2,7 +2,7 @@
 component=catalogue
 
 rpm_type=nodejs
-schema_setup=mongodb
+schema_type=mongodb
 
 source common.sh
 func_nodejs
