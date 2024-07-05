@@ -1,31 +1,7 @@
-cp catalogue.service /etc/systemd/system/catalogue.service
-cp mongo.repo /etc/yum.repos.d/mongo.repo
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+component=catalogue
 
-dnf module disable nodejs -y
-dnf module enable nodejs:18 -y
+rpm_type=nodejs
 
-dnf install nodejs -y
-
-useradd roboshop
-
-rm -rf /app
-
-mkdir /app
-
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
-cd /app
-unzip /tmp/catalogue.zip
-
-cd /app
-npm install
-
-dnf install mongodb-org-shell -y
-
-mongo --host mongodb.vinithaws.online </app/schema/catalogue.js
-
-systemctl daemon-reload
-
-systemctl enable catalogue
-systemctl restart catalogue
+source common.sh
+func_nodejs
