@@ -51,7 +51,7 @@ func_apppreq(){
 }
 
 func_schema_setup(){
-  if [ "${schema_setup}" == "mongodb" ]; then
+  if [ "${schema_type}" == "mongodb" ]; then
     echo  -e "\e[32m>>>> install DB shell <<<<\e[0m"   | tee -a  ${log}
     dnf install mongodb-org-shell -y   &>>${log}
     echo  -e "\e[32m>>>> load schema <<<<\e[0m"   | tee -a  ${log}
