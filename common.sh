@@ -51,14 +51,14 @@ func_apppreq(){
 }
 
 func_schema_setup(){
-  if [ "$(schema_type)" == "mongodb" ]; then
+  if [ "${schema_setup}" == "mongodb" ]; then
     echo  -e "\e[32m>>>> install DB shell <<<<\e[0m"   | tee -a  ${log}
     dnf install mongodb-org-shell -y   &>>${log}
     echo  -e "\e[32m>>>> load schema <<<<\e[0m"   | tee -a  ${log}
     mongo --host mongodb.vinithaws.online </app/schema/${component}.js  &>>${log}
   fi
 
-  if [ "$(schema_type)" == "mysql" ]; then
+  if [ "${schema_type}" == "mysql" ]; then
 
     echo  -e "\e[32m>>>> install mysql <<<<\e[0m"   | tee -a  ${log}
     dnf install mysql -y   &>>${log}
