@@ -13,7 +13,7 @@ rm -rf /usr/share/nginx/html/* &>>${log}
 func_exit_status
 
 echo  -e "\e[36m>>>> downloading application content <<<<\e[0m"   | tee -a  ${log}
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log}
+curl -o /tmp/frontend.zip  https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log}
 func_exit_status
 
 cd /usr/share/nginx/html
