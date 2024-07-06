@@ -1,4 +1,19 @@
 log=/tmp/roboshop.log
+func_java(){
+  echo  -e "\e[32m>>>> install maven <<<<\e[0m"   | tee -a  ${log}
+  dnf install maven -y &>>${log}
+
+  func_apppreq
+
+  echo  -e "\e[32m>>>> cleaning package <<<<\e[0m"   | tee -a  ${log}
+  mvn clean package   &>>${log}
+  echo  -e "\e[32m>>>> movinig ${component}jar <<<<\e[0m"   | tee -a  ${log}
+  mv target/${component}-1.0.jar ${component}.jar   &>>${log}
+
+  func_schema_setup
+
+  func_systemd
+}
 func_nodejs(){
 
   echo  -e "\e[32m>>>> mongo repo <<<<\e[0m"   | tee -a  ${log}
@@ -23,11 +38,21 @@ func_nodejs(){
   func_systemd
 
 }
+func_python(){
+  echo  -e "\e[32m>>>> install python <<<<\e[0m"   | tee -a  ${log}
+  dnf install python36 gcc python3-devel -y   &>>${log}
+
+  func_apppreq
+  echo  -e "\e[32m>>>> install python requirements <<<<\e[0m"   | tee -a  ${log}
+  pip3.6 install -r requirements.txt   &>>${log}
+
+  func_systemd
+}
 func_rpm(){
   if [ "${rpm_type}" == "nodejs" ] ; then
     echo  -e "\e[32m>>>> rpm setup  <<<<\e[0m"   | tee -a  ${log}
     curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log}
-    fi
+  fi
 }
 func_apppreq(){
 
@@ -42,11 +67,11 @@ func_apppreq(){
   mkdir /app
 
   echo  -e "\e[32m>>>> downloading ${component} <<<<\e[0m"   | tee -a  ${log}
-  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip  &>>${log}
 
   cd /app
   echo  -e "\e[32m>>>> unzipping content <<<<\e[0m"   | tee -a  ${log}
-  unzip /tmp/${component}.zip
+  unzip /tmp/${component}.zip &>>${log}
   cd /app
 }
 
