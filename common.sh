@@ -7,6 +7,7 @@ func_java(){
 
   echo  -e "\e[36m>>>> cleaning package <<<<\e[0m"   | tee -a  ${log}
   mvn clean package   &>>${log}
+  func_exit_status
   echo  -e "\e[36m>>>> movinig ${component}jar <<<<\e[0m"   | tee -a  ${log}
   mv target/${component}-1.0.jar ${component}.jar   &>>${log}
   func_exit_status
@@ -108,9 +109,9 @@ func_schema_setup(){
 
 func_systemd(){
   echo  -e "\e[36m>>>> enabaling and restarting service <<<<\e[0m"   | tee -a  ${log}
-  systemctl daemon-reload
-  systemctl enable ${component}
-  systemctl restart ${component}
+  systemctl daemon-reload  &>>${log}
+  systemctl enable ${component}   &>>${log}
+  systemctl restart ${component}  &>>${log}
   func_exit_status
 }
 func_exit_status(){

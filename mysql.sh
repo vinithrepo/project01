@@ -6,13 +6,13 @@ fi
 source common.sh
 
 echo  -e "\e[36m>>>> copy mysql repo <<<<\e[0m"   | tee -a  ${log}
-cp mysql.repo /etc/yum.repos.d/mysql.repo
+cp mysql.repo /etc/yum.repos.d/mysql.repo &>>${log}
 echo  -e "\e[36m>>>> disable mysql <<<<\e[0m"   | tee -a  ${log}
-dnf module disable mysql -y
+dnf module disable mysql -y &>>${log}
 echo  -e "\e[36m>>>> install mysql  <<<<\e[0m"   | tee -a  ${log}
-dnf install mysql-community-server -y
+dnf install mysql-community-server -y  &>>${log}
 echo  -e "\e[36m>>>> start mysql service <<<<\e[0m"   | tee -a  ${log}
-systemctl enable mysqld
-systemctl restart mysqld
+systemctl enable mysqld  &>>{log}
+systemctl restart mysqld  &>>{log}
 echo  -e "\e[36m>>>> set root password  <<<<\e[0m"   | tee -a  ${log}
 mysql_secure_installation --set-root-pass ${mysql_root_password}
