@@ -65,7 +65,7 @@ func_apppreq(){
   func_exit_status
 
   echo  -e "\e[36m>>>> adding user roboshop <<<<\e[0m"   | tee -a  ${log}
-  id roboshop
+  id roboshop &>>${log}
   if [ $? -ne 0 ]; then
     useradd roboshop
   fi
